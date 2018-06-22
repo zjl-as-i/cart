@@ -1,0 +1,43 @@
+<!--index.wxml-->
+<view class="main">
+  <scroll-view class="categroy-left" scroll-y style="height:{{windowScrollHeight}}px;" scroll-with-animation="true" scroll-top="{{scrollTop}}">
+    <view wx:for="{{detail}}" wx:key="index" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchTab" class="cate-list {{curIndex === index?'on':''}}">{{item.name}}</view>
+  </scroll-view>
+
+  <scroll-view class="categroy-right" scroll-y style="height:{{windowScrollHeight}}px;" scroll-into-view="{{toView}}" scroll-with-animation="true" bindscroll="scroll">
+    <block wx:for="{{detail}}" wx:for-index wx:key="idx">
+      <view id="{{item.id}}" class="cate-box">
+        <view class="product">
+          <view class="product-list" wx:for="{{item.detail}}" wx:key="index" wx:for-item="val">
+            <view class='goods'>
+              <view>
+                <image class='good-img' src="{{val.thumb}}"></image>
+              </view>
+              <view class="good-cont">
+                <view class='goods-navigator'>
+                  <text class='good-name'>{{val.name}}</text>
+                </view>
+                <view class='good-price'>
+                  <text>￥:{{val.price}}</text>
+                </view>
+              </view>
+              <view class='num-box'>
+                <view class='btn-groups'>
+                  <button class='goods-btn btn-minus' data-index="{{index}}" data-pid="{{val.pid}}" data-num="{{val.num}}" bindtap="subtraction">-</button>
+                  <text class="num">{{val.num}}</text>
+                  <button class='goods-btn btn-add' data-index="{{index}}" data-pid="{{val.pid}}" data-num="{{val.num}}" bindtap="addtion">+</button>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <view class="orders-footer">
+    <view class="orders-footer-total">付款合计：￥{{count}}, 共{{num}}件</view>
+    <view class="orders-footer-btn" bindtap="toPay">去付款</view>
+  </view>
+
+</view>
